@@ -162,9 +162,17 @@ class Portal extends CI_Controller {
 	}
 
 	public function manager_addEmp() {
-		//$result = $this->mainmodel->add_employee();
-		//$this->load->view('mgr_add_emp', array('data'=>$result));
-		$this->load->view('mgr_add_emp');
+	$this->mainmodel->manager_addEmployee(
+	$this->input->post('emp_id'),
+	$this->input->post('first_name'),
+	$this->input->post('last_name'),
+	$this->input->post('time_duty'),
+	$this->input->post('salary'),
+	$this->input->post('day_off'),
+	$this->input->post('address'),
+	$this->input->post('contact_number')
+	);
+	$this->load->view('mgr_add_emp');
 	}
 
 	// UPDATE ITEMS

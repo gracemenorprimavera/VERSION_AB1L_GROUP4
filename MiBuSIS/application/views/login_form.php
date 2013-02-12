@@ -1,6 +1,6 @@
 
 <center>
-<img class="logo" alt="" src="<?php echo base_url();?>images/logo.png">
+<img class="logo" alt="" src="<?php echo base_url();?>layout/logo3.png">
 
 <?php 
  	 

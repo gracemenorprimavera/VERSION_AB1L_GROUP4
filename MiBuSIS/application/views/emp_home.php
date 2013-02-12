@@ -7,6 +7,10 @@
 
 <body>
 
+<div class="logout_emp">
+	<?php echo anchor('portal/index', 'Logout'); ?>
+</div>
+
 <div class="nav_pane">
 	<?php 
 		include 'emp_nav.php'; 
@@ -17,12 +21,7 @@
 	<h1> Some message/logo here </h1>
 </div>
 
-<div class="purchase_display">
-	<?php
-		$purchase_but = array('name'=>'purchase_but', 'class'=>'item_but');
-		echo form_button($purchase_but, 'PURCHASE')
-	?>
-</div>
+
 
 </body>
 </html>

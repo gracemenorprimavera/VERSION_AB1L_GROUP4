@@ -1,1 +1,3 @@
-<h1> MiBuSIS: Minute Burger Sales and Inventory System </h1>
+<center>
+	<img class="header" alt="" src="<?php echo base_url();?>layout/header3.png">
+</center>

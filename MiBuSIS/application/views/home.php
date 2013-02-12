@@ -6,28 +6,24 @@
 </head>
 
 <body>
-
+<div id="main">
 	<div id="header">
+		<center>
 		<?php include 'main_header.php'; ?>
+		</center>
 	</div>
 	
-	<div id="about">
-		<p> 
-			-- Some text here ... <br>
-			-- About the System here ...
-		</p>
-	</div>
-
 	<div id="login_div">
-		
+		<center>
 		<?php include 'login_form.php'; ?>
+		</center>
 						
 	</div>
 
 	<div id="footer">
 		<?php include 'footer.php'; ?>
 	</div>
-	
+</div>	
 
 </body>
 </html>

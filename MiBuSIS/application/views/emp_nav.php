@@ -1,28 +1,21 @@
 
-
 <?php
 	
-	echo anchor('portal/index', 'Logout');
+	echo form_open('portal/emp_burger/1'); 
+ 	echo form_submit(array('class'=>'mealbutton','name'=>'submit'), 'Burger Meal'); 
+ 	echo form_close();
 
-	echo form_open(); // indicate the page here !!!!
-	$burger_but = array('name'=>'burger_but', 'class'=>'item_but');
-	$drinks_but = array('name'=>'drinks_but', 'class'=>'item_but');
-	$chips_but = array('name'=>'chips_but', 'class'=>'item_but');
-	$addons_but = array('name'=>'addons_but', 'class'=>'item_but');
-	
-	echo form_button($burger_but, 'Burger Meal');
-	echo anchor('portal/burger', 'Burger Meal');
-	
-	echo form_button($drinks_but, 'Drinks');
-	echo anchor('portal/drinks', 'Drinks');
+ 	echo form_open('portal/emp_drinks/2'); 
+ 	echo form_submit(array('class'=>'mealbutton','name'=>'submit'), 'Drinks'); 
+ 	echo form_close();
 
-	echo form_button($chips_but, 'Chips');
-	echo anchor('portal/chips', 'Chips');
+ 	echo form_open('portal/emp_chips/3'); 
+ 	echo form_submit(array('class'=>'mealbutton','name'=>'submit'), 'Chips'); 
+ 	echo form_close();
 
-	echo form_button($addons_but, 'Add-ons');
-	echo anchor('portal/addons', 'Add-ons');
-
-	echo form_close();
+ 	echo form_open('portal/emp_addons/4'); 
+ 	echo form_submit(array('class'=>'mealbutton','name'=>'submit'), 'Add-ons'); 
+ 	echo form_close();
 
 ?>
 

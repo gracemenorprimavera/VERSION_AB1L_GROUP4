@@ -7,6 +7,10 @@
 </head>
 <body>
 
+<div class="logout_div">
+	<?php echo anchor('portal/index', 'Logout'); ?>
+</div>
+
 <div class="mgr_nav">
 	<?php include('mgr_nav.php') ?>
 </div>
@@ -20,7 +24,7 @@
  	echo form_input(array('name'=>'prevpassword', 'value'=>'', 'size'=>'30', 'class'=>'log')); 
  	echo '<br>'; 
  	echo 'New Password';	
- 	echo form_input(array('name'=>'newpassword', 'value'=>'', 'size'=>'30', 'class'=>'log'));	
+ 	echo form_password(array('name'=>'newpassword', 'value'=>'', 'size'=>'30', 'class'=>'log'));	
  	echo '<br>'; 	
 	echo form_submit(array('id'=>'login_button','name'=>'submit'), 'Change Employee Password'); // alert for previous password
  	echo form_close();

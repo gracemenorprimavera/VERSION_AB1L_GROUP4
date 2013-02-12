@@ -7,6 +7,10 @@
 </head>
 <body>
 
+<div class="logout_div">
+	<?php echo anchor('portal/index', 'Logout'); ?>
+</div>
+
 <div class="mgr_nav">
 	<?php include('mgr_nav.php') ?>
 </div>

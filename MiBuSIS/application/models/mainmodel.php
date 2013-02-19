@@ -78,6 +78,13 @@ class Mainmodel extends CI_Model {
 		return $this->db->query($query_str)->result_array();
 	}
 
+	function cancel_order($x) {
+		//$result = $this->db->query("SELECT price from products where product_id=$product_id");
+		$price = $x; //$result['price'];
+		$query_str = "DELETE FROM purchase_order where product_price=$price LIMIT 1";
+		$this->db->query($query_str);	
+	}
+
 	/* NEIL */
 	public function manager_addEmployee($emp_id,$first_name,$last_name,$time_duty,$salary,$day_off,$address,$contact_number) {
 		/*$data = array( 'emp_id'=>$emp_id,
@@ -138,7 +145,6 @@ class Mainmodel extends CI_Model {
 		return $query->row_array();
 	}	
 
-		/*Christian*/
 
 	/*Bianca*/
 	public function view_itemList() {

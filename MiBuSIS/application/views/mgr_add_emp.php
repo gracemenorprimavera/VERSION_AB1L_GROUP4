@@ -16,8 +16,39 @@
 </div>
 
 <div class="mgr_display">
-	insert add form here
-</div>
+<?php 
+ 	 
+ 	echo form_open('portal/manager_addEmp');
+	echo 'Employee ID';
+ 	echo form_input('emp_id', ''); 
+ 	echo '<br>'; 
+	echo 'First Name';
+ 	echo form_input('first_name', ''); 
+ 	echo '<br>'; 
+ 	echo 'Last Name';
+	echo form_input('last_name', ''); 
+ 	echo '<br>';
+	echo 'Time Duty';
+ 	echo form_input('time_duty', ''); 
+ 	echo '<br>'; 
+	echo 'Salary';
+ 	echo form_input('salary', ''); 
+ 	echo '<br>'; 
+	echo 'Day Off';
+ 	echo form_input('day_off', ''); 
+ 	echo '<br>'; 
+	echo 'Address';
+ 	echo form_input('address', ''); 
+ 	echo '<br>'; 
+	echo 'Contact Number';
+ 	echo form_input('contact_number', ''); 
+ 	echo '<br>'; 
+	echo form_submit('submit','Add Employee');
+ 	echo form_close();
+
+ ?>
+<center>
+
 
 
 </body>

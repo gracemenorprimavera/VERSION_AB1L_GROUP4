@@ -4,6 +4,12 @@
 <html>
 <head>
 	<title>Mgr Home</title>
+<?php include 'resources.php'; ?>
+
+
+<html>
+<head>
+	<title>Mgr Home</title>
 </head>
 <body>
 
@@ -15,8 +21,18 @@
 	<?php include('mgr_nav.php') ?>
 </div>
 
-<div class="mgr_display">
-... removed product
+<div class="mgr_display" id="viewProduct_display">
+<table border="1px solid black">
+<?php
+	foreach ($data as $d) {
+		echo "<tr>";
+		echo "<td>".$d['item_id']."</td>";
+		echo "<td>".$d['item_name']."</td>";
+		echo "</tr>";
+	}
+?>
+</table>
+
 </div>
 
 

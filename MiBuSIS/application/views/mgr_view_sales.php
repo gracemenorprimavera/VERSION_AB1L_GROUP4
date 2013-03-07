@@ -11,11 +11,11 @@
 	<?php echo anchor('portal/index', 'Logout'); ?>
 </div>
 
-<div class="mgr_nav">
+<div class="mgr_nav" >
 	<?php include('mgr_nav.php') ?>
 </div>
 
-<div class="mgr_display">
+<div class="mgr_display" id="viewSales_display">
 ... view sales
 </div>
 

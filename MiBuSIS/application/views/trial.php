@@ -2,7 +2,7 @@ trial
 <table border="1px solid black">
 
 <?php
-	$ctr = 0;
+	/*$ctr = 0;
 	$ctr2=-1;
 	foreach ($data as $d) { 
 		//echo $ctr;
@@ -23,7 +23,8 @@ trial
 
 		$ctr++;
 
-	}
+	}*/
+	echo $error;
 ?>
 </table>
 

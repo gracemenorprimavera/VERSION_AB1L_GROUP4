@@ -1,4 +1,4 @@
-<table border="1px solid black">
+<table>
 	<?php
 		$ctr = 0;
 		$ctr2=-1;
@@ -11,9 +11,9 @@
 			}
 			$page = $this->uri->segment(2); // needed to redirect to the same page
 			echo "<td>";	
-				$image_loc = base_url().$d['image_location'];
+				$image_loc = base_url().$d['product_image_location'];
 				$image_loc1 = "<img class='prodimg' src=".$image_loc.">"; 
-				echo anchor('portal/list_order/'.$d['image_product_id'].'/'.$page, $image_loc1.'<br>'.$d['image_product_name']); 
+				echo anchor('portal/list_order/'.$d['product_id'].'/'.$page, $image_loc1.'<br>'.$d['product_name'].'<br>P '.$d['price'].'.00'); 
 			echo "</td>";
 			
 			if($ctr==$ctr2)

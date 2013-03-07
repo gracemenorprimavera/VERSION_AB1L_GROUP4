@@ -15,25 +15,30 @@
 	<?php include('mgr_nav.php') ?>
 </div>
 
-<div class="mgr_display">
+<div class="mgr_display" id="epwd_display">
 
-<?php 
- 	 
- 	echo form_open('portal/save_epassword');
- 	echo 'Previous Password';
- 	echo form_input(array('name'=>'prevpassword', 'value'=>'', 'size'=>'30', 'class'=>'log')); 
- 	echo '<br>'; 
- 	echo 'New Password';	
- 	echo form_password(array('name'=>'newpassword', 'value'=>'', 'size'=>'30', 'class'=>'log'));	
- 	echo '<br>'; 	
-	echo form_submit(array('id'=>'login_button','name'=>'submit'), 'Change Employee Password'); // alert for previous password
- 	echo form_close();
-?>
-<center>
-<?php
-	echo $message;
-?>
-</center>
+	<div id="pwd_div">
+		<div class="noti_div">
+			<?php echo $message; ?>
+			<?php echo validation_errors(); ?>
+		</div>
+	<br>
+	<?php 
+
+	 	echo form_open('portal/save_epassword');
+	 	echo 'Previous Password';
+	 	echo form_password(array('name'=>'prevpassword', 'value'=>'', 'size'=>'30', 'class'=>'log')); 
+	 	echo '<br>'; 
+	 	echo 'New Password';	
+	 	echo form_password(array('name'=>'newpassword', 'value'=>'', 'size'=>'30', 'class'=>'log'));
+	 	echo '<br>'; 
+	 	echo 'Confirm New Password';	
+	 	echo form_password(array('name'=>'confirmnewpassword', 'value'=>'', 'size'=>'30', 'class'=>'log'));	
+	 	echo '<br><br>'; 	
+		echo form_submit(array('id'=>'login_button','name'=>'submit'), 'Change Employee Password'); // alert for previous password
+	 	echo form_close();
+	?>		
+	</div>
 </div>
 
 

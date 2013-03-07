@@ -98,6 +98,7 @@ div {
 	float:left;
 	-moz-border-radius:5px;
 	border-radius:5px;
+	overflow: scroll;
 }
 
 .nav_pane {
@@ -116,10 +117,13 @@ div {
 	/*border:1px solid brown;*/
 	height: 100px;
 	width: 200px;
-	margin:2px;	
+	margin-left:50px;	
 	-moz-border-radius:5px;
 	border-radius:5px;
-	padding-left: 100px;
+	padding-left: 0px;
+	text-align: center;
+	font-size: 20px;
+
 }
 
 .purchase_display {
@@ -130,6 +134,7 @@ div {
 	width:300px;
 	-moz-border-radius:5px;
 	border-radius:5px;
+	overflow: scroll;
 }
 
 
@@ -161,12 +166,47 @@ div {
 	border-radius:5px;
 	padding: 10px;
 	font-family:'Trebuchet MS', Arial, Verdana;
+	/*overflow: scroll;*/
+}
+
+#viewEmp_display, #viewItem_display, #viewProduct_display, #viewRemovedItem_display, #viewSales_display {
+	overflow: scroll;
+}
+
+.noti_div {
+	font-size: 12px;
+	color: red;
+}
+
+.mgr_display input, select {
+	margin-top:5px;
+	margin-left: 5px;
+}
+#pwd_div {
+	width: 300px;
+	height: 400px;
+	border: 3px solid brown;
+	margin: auto; 
+	margin-top: 20px; /* top right botton left */
+	text-align:center;
+	-moz-border-radius:5px;
+	border-radius:5px;
+}
+
+input {
+	
 }
 
 table {
 	text-align: center;
-	border:2px solid brown;
-	margin:2px;
+	/*border:2px solid brown;*/
+	/*margin:2px;*/
+}
+.purchase {
+	text-align: center;
+	font-size: 20px
+	/*border:2px solid brown;*/
+	/*margin:2px;*/
 }
 th {
 	width: 150px;
@@ -175,17 +215,27 @@ th {
 .prodimg {
 	height: 100px;
 	width: 100px;
+	border: 2px solid brown;
+	margin:10px;
+	-moz-border-radius:5px;
+	border-radius:5px;
 }
 
+.prodimg:hover {
+	height: 100px;
+	width: 100px;
+	border: 2px solid black;
+}
 
+a {
+	font-style: normal;
+	font-family:'Trebuchet MS', Arial, Verdana;
 
+}
 
-
-
-
-
-
-
+a:hover {
+	color:red;
+}
 
 .c {
 	font-size:12px;

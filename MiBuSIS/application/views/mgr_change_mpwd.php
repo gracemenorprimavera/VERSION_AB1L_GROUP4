@@ -7,8 +7,8 @@
 </head>
 <body>
 
-<div class="logout_div">
-	<?php echo anchor('portal/index', 'Logout'); ?>
+<div class="logout_emp">
+  <?php echo anchor('portal/index', '<img src="'.base_url().'layout/logoutbutton.png" height="45" width="90"/>'); ?>
 </div>
 
 <div class="mgr_nav">
@@ -34,7 +34,7 @@
 	 	echo 'Confirm New Password';	
 	 	echo form_password(array('name'=>'confirmnewpassword', 'value'=>'', 'size'=>'30', 'class'=>'log'));		
 	 	echo '<br><br>'; 	
-		echo form_submit(array('id'=>'login_button','name'=>'submit'), 'Change Manager Password'); // alert for previous password
+		echo form_submit(array('id'=>'chAngeMpwd','name'=>'submit'), 'Change Manager Password'); // alert for previous password
 	 	echo form_close();
 
 	 ?>

@@ -1,3 +1,4 @@
- 
+
  <link type="text/css" href="<?php echo base_url();?>style.css" rel="stylesheet" />
- <script src="script.js"></script>
+  <link type="text/css" href="<?php echo base_url();?>css1.css" rel="stylesheet" />
+ <script src="javascript.js"></script>

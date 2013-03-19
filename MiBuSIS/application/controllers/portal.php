@@ -20,8 +20,7 @@ class Portal extends CI_Controller {
 	
 	
 	public function index() {
-		//$this->load->helper(array('form', 'url'));
-		//$this->load->library('form_validation');
+		$this->mainmodel->clear_purchase();
 		$data["message"] = "";
 		$this->load->view('home', $data);
 	}
@@ -51,15 +50,15 @@ class Portal extends CI_Controller {
 				$data["message"] = "* Invalid password";
 				$this->load->view('home',$data);				
 			}
-		}
-		
+		}		
 	}
 
 	/* ===================== EMPLOYEE PRIVILEGES ================*/
 
 	public function employee_home() {
-		$data["message"] ="";
-		$this->load->view('emp_home', $data);
+			$result = $this->mainmodel->check_stocks();
+			$result2 = $this->mainmodel->check_outstocks(); 
+			$this->load->view('emp_home', array('data'=>$result, 'data2'=>$result2));
 	}
 
 		public function emp_burger() {
@@ -103,10 +102,11 @@ class Portal extends CI_Controller {
 			$result = $this->mainmodel->take_order($prod_id);
 
 			foreach ($result as $d) {
+				$id = $d['product_id'];
 				$name = $d['product_name'];
 				$price = $d['price'];
 			}
-			$this->mainmodel->list_order($name, $price);
+			$this->mainmodel->list_order($id, $name, $price);
 
 			//this->load->view($page, array('data'=>$result));
 			redirect('portal/'.$page.'/'.$prod_id);
@@ -122,12 +122,32 @@ class Portal extends CI_Controller {
 		}
 	
 		public function emp_purchase_order() {
+			//$this->mainmodel->delete_removedItem_data();
+		
+			$productID = $this->mainmodel->get_productID();
+			
+			foreach ($productID as $row){
+				$temp_prodID = $row['product_id'];
+				$temp_quantity = $row['quantity'];
+				$itemID = $this->mainmodel->get_itemID($temp_prodID);
+				foreach ($itemID as $a){
+					$temp_itemID = $a['item_id'];
+					$temp_itemName = $a['item_name'];
+					$this->mainmodel->insertData($temp_itemID,$temp_itemName,$temp_quantity);
+					$this->mainmodel->updateItemQuantity($temp_itemID, $temp_quantity);
+					echo $temp_itemID.' '.$temp_quantity;
+				}		
+			}
+			
 			$this->mainmodel->purchase_order();
 			redirect('portal/employee_home');
 		}
+
+		public function check_stock() {
+			$result = $this->mainmodel->view_items();
+			$this->load->view('emp_stocks', array('data'=>$result));		
+		}
 		
-
-
 	/* ==================== MANAGER PRIVILEGES ================== */
 
 	public function manager_home() {
@@ -135,7 +155,7 @@ class Portal extends CI_Controller {
 		$this->load->view('mgr_home');
 	}
 
-	/* CHANGE PASSWORD */
+	/* -- CHANGE PASSWORD -- */
 
 		public function manager_changeEPassword() {
 			$data["message"] = "";
@@ -254,7 +274,7 @@ class Portal extends CI_Controller {
 			        'first_name'=> $this->input->post('first_name'),
 					'last_name'=> $this->input->post('last_name'),
 					'time_duty'=> $this->input->post('time_duty'),
-					'salary'=> $this->input->post('salary'),
+					/*'salary'=> $this->input->post('salary'),*/
 					'day_off'=> $this->input->post('day_off'),
 					'address'=> $this->input->post('address'),
 					'contact_number'=> $this->input->post('contact_number'),	
@@ -285,14 +305,13 @@ class Portal extends CI_Controller {
 					$data['e_fname']['value'] = $query['first_name'];
 					$data['e_lname']['value'] = $query['last_name'];
 					$data['e_time_duty']['value'] = $query['time_duty'];
-					$data['e_salary']['value'] = $query['salary'];
+					/*$data['e_salary']['value'] = $query['salary'];*/
 					$data['e_dayoff']['value'] = $query['day_off'];
 					$data['e_address']['value'] = $query['address'];
 					$data['e_contactNumber']['value'] = $query['contact_number'];
 				}
 				$this->load->view('edit_employee_testing',$data); 			 		
 		}
-
 
 		/* DELETE EMPLOYEE*/
 
@@ -327,7 +346,7 @@ class Portal extends CI_Controller {
 			$this->form_validation->set_rules('last_name','Last Name','required|alpha');
 			$this->form_validation->set_rules('time_duty','Time of Duty','required');
 			$this->form_validation->set_rules('day_off','Day Off','required');
-			$this->form_validation->set_rules('contact_number','Contact Number','required|exact_length[11]|numeric');
+			$this->form_validation->set_rules('contact_number','Contact Number','exact_length[11]|numeric');
 			
 			if ($this->form_validation->run() == FALSE) {
 				$data["message"] = "";
@@ -339,7 +358,7 @@ class Portal extends CI_Controller {
 				$this->input->post('first_name'),
 				$this->input->post('last_name'),
 				$this->input->post('time_duty'),
-				$this->input->post('salary'),
+				/*$this->input->post('salary'),*/
 				$this->input->post('day_off'),
 				$this->input->post('address'),
 				$this->input->post('contact_number')
@@ -354,8 +373,6 @@ class Portal extends CI_Controller {
 			$data["message"] = "";
 			$this->load->view('mgr_add_emp', $data);
 		}
-
-	
 	
 	/* -- UPDATE ITEMS -- */
 
@@ -485,7 +502,6 @@ class Portal extends CI_Controller {
 			}
 		}
 
-
 	/* -- UPDATE PRODUCTS -- */
 
 		/* VIEW PRODUCT */
@@ -548,7 +564,7 @@ class Portal extends CI_Controller {
 		}
 
 		public function addProductDetails(){
-			//$this->form_validation->set_rules('product_id','Product ID','required');
+			$this->form_validation->set_rules('product_id','Product ID','required');
 			$this->form_validation->set_rules('product_name','Product Name','required');
 			$this->form_validation->set_rules('product_category','Category','required');
 			//$this->form_validation->set_rules('product_image_location','Image','required');
@@ -609,13 +625,11 @@ class Portal extends CI_Controller {
 			{
 					$image_data = $this->upload->data();
 					$image_path = 'images/'.$image_data['file_name'];
-					
-					
+										
 					$this->mainmodel->upload_image($image_path, $id);
 					$data2["message"] = "Product Successfully Added!";
 					$result = $this->mainmodel->view_checkbox();
-					$this->load->view('mgr_add_product',array('data'=>$result,'data2'=>$data2));
-				
+					$this->load->view('mgr_add_product',array('data'=>$result,'data2'=>$data2));				
 			}
 		}
 
@@ -633,66 +647,77 @@ class Portal extends CI_Controller {
 			$this->load->view('samp',array('data'=>$result));
 		}
 
-	/* VIEW REMOVED ITEMS */
+	/* -- VIEW REMOVED ITEMS -- */
 
-	public function manager_viewRemovedItems() {
-		$this->mainmodel->delete_removedItem_data();
-		
-		$productID = $this->mainmodel->get_productID();
-		
-		foreach ($productID as $row){
-			$temp_prodID = $row['product_id'];
-			$temp_quantity = $row['quantity'];
-			$itemID = $this->mainmodel->get_itemID($temp_prodID);
-			foreach ($itemID as $a){
-				$temp_itemID = $a['item_id'];
-				$temp_itemName = $a['item_name'];
-				$this->mainmodel->insertData($temp_itemID,$temp_itemName,$temp_quantity);
+		public function manager_viewRemovedItems() {
+			/*
+			$this->mainmodel->delete_removedItem_data();
+			
+			$productID = $this->mainmodel->get_productID();
+			
+			foreach ($productID as $row){
+				$temp_prodID = $row['product_id'];
+				$temp_quantity = $row['quantity'];
+				$itemID = $this->mainmodel->get_itemID($temp_prodID);
+				foreach ($itemID as $a){
+					$temp_itemID = $a['item_id'];
+					$temp_itemName = $a['item_name'];
+					$this->mainmodel->insertData($temp_itemID,$temp_itemName,$temp_quantity);
+				}		
 			}
-			
+			*/
 			$view = $this->mainmodel->view_removedItems();
-			
+			$this->load->view('mgr_view_removedItems',array('data'=>$view));		
 		}
-		$this->load->view('mgr_view_removedItems',array('data'=>$view));		
-	}
 
-	/* VIEW SALES */
-	public function manager_viewSales() {
-		$result = $this->mainmodel->view_sales();
-		$this->load->view('mgr_view_sales', array('data'=>$result));
-	}
+	/* -- VIEW SALES -- */
+
+		/*public function manager_viewSales() {
+			$result = $this->mainmodel->view_sales();
+			$this->load->view('mgr_view_sales', array('data'=>$result));
+		}*/
+
+		public function manager_viewSales() {
+			$result = $this->mainmodel->view_sales();
+			$total = $this->mainmodel->get_totalsales();
+			$totalsales = 0;
+			foreach ($total as $d){
+				$totalsales = $totalsales + $d['subtotal'];
+			}
+			//echo $totalsales;
+			$this->load->view('mgr_view_sales', array('data'=>$result,'totalsales' => $totalsales));
+		}
 	
 	/* -- GENERATE REPORTS -- */
 
-	public function manager_generateReports() {
-		//$this->load->helper('download');
-		$this->load->view('mgr_generate_report');
-	}
+		public function manager_generateReports() {
+			//$this->load->helper('download');
+			$this->load->view('mgr_generate_report');
+		}
 
-	public function download() {
-		$this->load->helper('download');
-		$this->load->view('mgr_generated_pdf');
-	}
+		public function download() {
+			$this->load->helper('download');
+			$this->load->view('mgr_generated_pdf');
+		}
 
-	/* ABOUT THE AUTHORS */
+	/* -- ABOUT THE AUTHORS -- */
 
-	public function administrator() {
-		$this->load->view('admin_home');
-	}
+		public function administrator() {
+			$this->load->view('admin_home');
+		}
 
-	public function about() {
-		$this->load->view('footer_about');
-	}
+		public function about() {
+			$this->load->view('footer_about');
+		}
 
-	public function contact() {
-		//$this->load->helper('download');
-		$this->load->view('footer_contact');
-	}
+		public function contact() {
+			//$this->load->helper('download');
+			$this->load->view('footer_contact');
+		}
 
-	
-
-
-	
+		public function footer() {
+			$this->load->view('footer');
+		}
 	
 }
 

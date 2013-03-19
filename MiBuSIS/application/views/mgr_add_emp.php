@@ -10,8 +10,8 @@
 </head>
 <body>
 
-<div class="logout_div">
-  <?php echo anchor('portal/index', 'Logout'); ?>
+<div class="logout_emp">
+  <?php echo anchor('portal/index', '<img src="'.base_url().'layout/logoutbutton.png" height="45" width="90"/>'); ?>
 </div>
 
 <div class="mgr_nav">
@@ -23,7 +23,7 @@
       <?php echo $message; ?>
       <?php echo validation_errors(); ?>
   </div>
-  FILL IN ULIT UNG DATA PAG MAY ERROR
+
 <?php
  
   echo form_open('portal/manager_addEmp');

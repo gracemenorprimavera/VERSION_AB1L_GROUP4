@@ -37,67 +37,88 @@ class Mainmodel extends CI_Model {
 		return $this->db->query($query_str)->result_array();
 	}
 
-	public function view_employeeList_by_id() {
-		$query_str = "SELECT * from employee order by emp_id";
-		return $this->db->query($query_str)->result_array();
-	}
-	public function view_employeeList_by_fname() {
-		$query_str = "SELECT * from employee order by first_name";
-		return $this->db->query($query_str)->result_array();
-	}
-	public function view_employeeList_by_lname() {
-		$query_str = "SELECT * from employee order by last_name";
-		return $this->db->query($query_str)->result_array();
-	}
-	public function view_employeeList_by_timeduty() {
-		$query_str = "SELECT * from employee order by time_duty";
-		return $this->db->query($query_str)->result_array();
-	}	
-	public function view_employeeList_by_dayoff() {
-		$query_str = "SELECT * from employee order by day_off";
-		return $this->db->query($query_str)->result_array();
-	}
+		public function view_employeeList_by_id() {
+			$query_str = "SELECT * from employee order by emp_id";
+			return $this->db->query($query_str)->result_array();
+		}
+
+		public function view_employeeList_by_fname() {
+			$query_str = "SELECT * from employee order by first_name";
+			return $this->db->query($query_str)->result_array();
+		}
+
+		public function view_employeeList_by_lname() {
+			$query_str = "SELECT * from employee order by last_name";
+			return $this->db->query($query_str)->result_array();
+		}
+
+		public function view_employeeList_by_timeduty() {
+			$query_str = "SELECT * from employee order by time_duty";
+			return $this->db->query($query_str)->result_array();
+		}
+
+		public function view_employeeList_by_dayoff() {
+			$query_str = "SELECT * from employee order by day_off";
+			return $this->db->query($query_str)->result_array();
+		}
 
 	public function view_items() {
 		$query_str = "SELECT * from item where item_name!='0' ";
 		return $this->db->query($query_str)->result_array();
 	}
 
-	public function view_itemList_by_id() {
-		$query_str = "SELECT * from item order by item_id";
-		return $this->db->query($query_str)->result_array();
-	}
-	public function view_itemList_by_name() {
-		$query_str = "SELECT * from item order by item_name";
-		return $this->db->query($query_str)->result_array();
-	}
-	public function view_itemList_by_delivered() {
-		$query_str = "SELECT * from item order by date_delivered";
-		return $this->db->query($query_str)->result_array();
-	}
-	public function view_itemList_by_expired() {
-		$query_str = "SELECT * from item order by date_expired";
-		return $this->db->query($query_str)->result_array();
-	}
-	public function view_itemList_by_quantity() {
-		$query_str = "SELECT * from item order by quantity";
+		public function view_itemList_by_id() {
+			$query_str = "SELECT * from item order by item_id";
+			return $this->db->query($query_str)->result_array();
+		}
+
+		public function view_itemList_by_name() {
+			$query_str = "SELECT * from item order by item_name";
+			return $this->db->query($query_str)->result_array();
+		}
+
+		public function view_itemList_by_delivered() {
+			$query_str = "SELECT * from item order by date_delivered";
+			return $this->db->query($query_str)->result_array();
+		}
+
+		public function view_itemList_by_expired() {
+			$query_str = "SELECT * from item order by date_expired";
+			return $this->db->query($query_str)->result_array();
+		}
+
+		public function view_itemList_by_quantity() {
+			$query_str = "SELECT * from item order by quantity";
+			return $this->db->query($query_str)->result_array();
+		}
+
+	public function view_productList() {
+		$query_str = "SELECT * from product where product_name!='0' order by product_id";
 		return $this->db->query($query_str)->result_array();
 	}
 
+		public function view_productList_by_id() {
+			$query_str = "SELECT * from product order by product_id";
+			return $this->db->query($query_str)->result_array();
+		}
 
+		public function view_productList_by_name() {
+			$query_str = "SELECT * from product order by product_name";
+			return $this->db->query($query_str)->result_array();
+		}
 
-	public function getAll(){
+		public function view_productList_by_category() {
+			$query_str = "SELECT * from product order by product_category";
+			return $this->db->query($query_str)->result_array();
+		}
+
+		public function view_productList_by_price() {
+			$query_str = "SELECT * from product order by 	price";
+			return $this->db->query($query_str)->result_array();
+		}
+
+	public function getAll() {
 		return $this->db->query("select * from accounts")->result_array();
-	}
-
-	public function listOrder($order) {
-		$query_str = "SELECT * from prod_ingredients";
-		return $this->db->query($query_str)->result_array();
-	}
-
-	public function addOrder($order) {
-		$query_str = "INSERT INTO prod_ingredients VALUES (1,1)";
-		$this->db->query($query_str);
 	}
 
 	function query_product($category) {
@@ -113,7 +134,7 @@ class Mainmodel extends CI_Model {
 		return $this->db->query($query_str)->result_array();
 	}
 
-	function list_order($name, $price) {
+	function list_order($id, $name, $price) {
 		$result = $this->db->query("SELECT * from purchase_order where product_name='$name'");
 		
 		if($result->num_rows() > 0) {
@@ -128,7 +149,7 @@ class Mainmodel extends CI_Model {
 
 		}
 		else {
-			$query_str = "INSERT INTO purchase_order VALUES (1, '$name', $price)";
+			$query_str = "INSERT INTO purchase_order VALUES (1, $id, '$name', $price)";
 			$this->db->query($query_str);
 		}
 	}
@@ -162,26 +183,29 @@ class Mainmodel extends CI_Model {
 		}
 	}
 
-	
+	function check_stocks() {
+		$query_str = "SELECT * from item where quantity<5 and quantity>0";
+		return $this->db->query($query_str)->result_array();
+	}
 
-	/* NEIL */
-	//////////////////////////////////////////////////////////////
+	function check_outstocks() {
+		$query_str = "SELECT * from item where quantity=0";
+		return $this->db->query($query_str)->result_array();
+	}
+
 	public function manager_addEmployee($emp_id,$first_name,$last_name,$time_duty,$salary,$day_off,$address,$contact_number) {
-	if($emp_id!=NULL or $first_name!=NULL or $last_name!=NULL or $salary!=NULL or $day_off!=NULL or $address!=NULL or $contact_number!=NULL){
-		$this->db->set('emp_id',$emp_id);
-		$this->db->set('first_name',$first_name);
-		$this->db->set('last_name',$last_name);
-		$this->db->set('time_duty',$time_duty);
-		$this->db->set('salary',$salary);
-		$this->db->set('day_off',$day_off);
-		$this->db->set('address',$address);
-		$this->db->set('contact_number',$contact_number);
-		$this->db->insert('employee');
+		if($emp_id!=NULL or $first_name!=NULL or $last_name!=NULL or $salary!=NULL or $day_off!=NULL or $address!=NULL or $contact_number!=NULL){
+			$this->db->set('emp_id',$emp_id);
+			$this->db->set('first_name',$first_name);
+			$this->db->set('last_name',$last_name);
+			$this->db->set('time_duty',$time_duty);
+			$this->db->set('salary',$salary);
+			$this->db->set('day_off',$day_off);
+			$this->db->set('address',$address);
+			$this->db->set('contact_number',$contact_number);
+			$this->db->insert('employee');
+		}
 	}
-	}
-
-
-	/*Christian*/
 
 	public function manager_addItems($item_id,$item_name,$date_delivered,$date_expired,$quantity) {
 		
@@ -193,15 +217,11 @@ class Mainmodel extends CI_Model {
 
 		$this->db->insert('item');
 	}
-	
 
-
-	/* BEY */
 	public function edit_employee(){
 		$query_str = "SELECT * from item";
 		return $this->db->query($query_str)->result_array();
 	}
-
 
 	public function update($id, $data){
 		 $this->db->where('emp_id', $id);
@@ -213,30 +233,6 @@ class Mainmodel extends CI_Model {
 		$query =  $this->db->get_where('employee', array('emp_id'=> $id));
 		return $query->row_array();
 	}	
-
-	public function view_productList() {
-		$query_str = "SELECT * from product where product_name!='0' order by product_id";
-		return $this->db->query($query_str)->result_array();
-	}
-
-	public function view_productList_by_id() {
-		$query_str = "SELECT * from product order by product_id";
-		return $this->db->query($query_str)->result_array();
-	}
-	public function view_productList_by_name() {
-		$query_str = "SELECT * from product order by product_name";
-		return $this->db->query($query_str)->result_array();
-	}
-	public function view_productList_by_category() {
-		$query_str = "SELECT * from product order by product_category";
-		return $this->db->query($query_str)->result_array();
-	}
-	public function view_productList_by_price() {
-		$query_str = "SELECT * from product order by 	price";
-		return $this->db->query($query_str)->result_array();
-	}
-
-
 
 	function deleteProduct($id){	
 		$sql = "DELETE FROM product WHERE product_id =? ";
@@ -264,9 +260,6 @@ class Mainmodel extends CI_Model {
 		return $this->db->affected_rows();	
 	}
 
-
-
-	/*Bianca*/
 	public function view_itemList() {
 		$query_str = "SELECT * from item";
 		return $this->db->query($query_str)->result_array();
@@ -277,24 +270,21 @@ class Mainmodel extends CI_Model {
 		$query =  $this->db->get_where('item', array('item_id'=> $id));
 		return $query->row_array();
 	}
-	/*Bianca*/
 
-
-
-	/* NEIL */
-
-	/*function purchase_order() {
-		$query_str = "INSERT INTO transactions (quantity, product_name, product_price, subtotal) SELECT quantity, product_name, product_price, quantity*product_price FROM purchase_order";
-		$query_str2 = "DELETE FROM purchase_order";
-			
-		$this->db->query($query_str);	
-		$this->db->query($query_str2);
-	}*/
+	function clear_purchase() {
+		$query_str = "DELETE FROM purchase_order";
+		$this->db->query($query_str);
+	}
 
 	function purchase_order() {
 		$tran_rand = mt_rand(1,5);
-		$query_str = "INSERT INTO transactions (quantity,product_name, product_price,subtotal) SELECT quantity,product_name, product_price. quantity*product_price FROM purchase_order"; 
+		$query_str = "INSERT INTO transactions (quantity,product_id, product_name, product_price,subtotal) SELECT quantity, product_id, product_name, product_price, quantity*product_price FROM purchase_order"; 
 		$query_str2 = "DELETE FROM purchase_order";
+		//$query_str3 = "SELECT * from purchase_order";
+		
+		$this->db->query($query_str);	
+		$this->db->query($query_str2);
+		
 		/*$result = $this->db->query("SELECT * from tran_ids");
 		$bool = 0;
 		foreach ($result as $d) {
@@ -311,8 +301,6 @@ class Mainmodel extends CI_Model {
 		}*/
 	}
 
-	/* -----------------  */
-	//__________ Bianca: add product ____________________________________________________________________________
 	public function addProducts($product_id,$product_name,$product_category,$product_image_location,$price){
 		$this->db->set('product_id',$product_id);
 		$this->db->set('product_name',$product_name);
@@ -323,42 +311,46 @@ class Mainmodel extends CI_Model {
 		$this->db->insert('product');
 	}
 
-	public function get_itemName(){
-		$result = "SELECT * from item";
-		return $this->db->query($result)->result_array();
-	}
-	
-	public function view_checkbox(){
-		$query_str = "SELECT * from item where item_name!='0'";
-		return $this->db->query($query_str)->result_array();
-	}
-
-	public function add_checkboxvalue($product_id,$value,$itemName){
-		foreach ($value as $key){
-			$this->db->set('product_id',$product_id);
-			$this->db->set('item_id',$key);
-			
-			foreach($itemName as $a){
-				if($a['item_id']==$key){
-					$this->db->set('item_name',$a['item_name']);
-				}
-			}
-		
-			$this->db->insert('product_item');
+		public function get_itemName(){
+			$result = "SELECT * from item";
+			return $this->db->query($result)->result_array();
 		}
-	}
-	//_____ end of product _________________________________________________________________________________
+		
+		public function view_checkbox(){
+			$query_str = "SELECT * from item where item_name!='0'";
+			return $this->db->query($query_str)->result_array();
+		}
 
-	//_____  Bianca: view sales _________________________________________________________________________________
+		public function add_checkboxvalue($product_id,$value,$itemName){
+			foreach ($value as $key){
+				$this->db->set('product_id',$product_id);
+				$this->db->set('item_id',$key);
+				
+				foreach($itemName as $a){
+					if($a['item_id']==$key){
+						$this->db->set('item_name',$a['item_name']);
+					}
+				}
+			
+				$this->db->insert('product_item');
+			}
+		}
+
 	public function view_sales() {
 		$query_str = "SELECT * from transactions where product_name!='0' ";
 		return $this->db->query($query_str)->result_array();
 	}
-	//_____ end view sales _________________________________________________________________________________
 
-	//_____ Bianca&&Grace: view removed items _________________________________________________________________________________
+	//________	total sales	__________________________________________________________________________________________________________
+	public function get_totalsales() {
+		$query_str = "SELECT subtotal from transactions";
+		return $this->db->query($query_str)->result_array();
+	}
+	//________	end of total sales	__________________________________________________________________________________________________________
+
 	public function get_productID(){
-		$result = "SELECT * from transactions";
+		//$result = "SELECT * from transactions";
+		$result = "SELECT * from purchase_order";
 		return $this->db->query($result)->result_array();
 	}
 	
@@ -372,8 +364,13 @@ class Mainmodel extends CI_Model {
 		$this->db->query($result);
 		
 		$result2 = "select * from removed_item";
-		return $this->db->query($result2)->result_array();
-		
+		$this->db->query($result2)->result_array();		
+	}
+
+	public function updateItemQuantity($id, $quantity) {
+		$result = "UPDATE item SET quantity=quantity-$quantity where item_id=$id";
+		$this->db->query($result);	
+
 	}
 	
 	public function view_removedItems(){
@@ -385,29 +382,15 @@ class Mainmodel extends CI_Model {
 		$result = "TRUNCATE TABLE removed_item";
 		$this->db->query($result);
 	}
-//__________ end of removed items  ___________________________________________________________________________
 
-
-
-
-	// test function
 	function add_date($date) {
 		$query_str = "INSERT into sample values ('$date')";
 		$this->db->query($query_str);
 	}
 
-
 	function upload_image ($image_loc, $id) {
-		/*$this->load->database();
-		$data = array(
-			'image_id' => NULL,
-           'image_location'=>$image_location,    
-           'species_taxon_id'=>$taxon_id                 
-           );
-        $this->db->insert('image',$data);   */
-       	$query_str = "UPDATE product SET product_image_location='$image_loc' where product_id=$id";
+		$query_str = "UPDATE product SET product_image_location='$image_loc' where product_id=$id";
 		$this->db->query($query_str);
-
 	}
 }
 

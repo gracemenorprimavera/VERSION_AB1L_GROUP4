@@ -7,8 +7,8 @@
 </head>
 <body>
 
-<div class="logout_div">
-	<?php echo anchor('portal/index', 'Logout'); ?>
+<div class="logout_emp">
+  <?php echo anchor('portal/index', '<img src="'.base_url().'layout/logoutbutton.png" height="45" width="90"/>'); ?>
 </div>
 
 <div class="mgr_nav" >
@@ -17,23 +17,24 @@
 
 <div class="mgr_display" id="viewItem_display">
 	<table border="1px solid black">
-
+		<tbody style="background-color:orange">
 		<th><?php echo anchor('portal/manager_viewItemList_by_id','Item ID')?></th> 
 		<th><?php echo anchor('portal/manager_viewItemList_by_fname','Item Name')?></th> 
 		<th><?php echo anchor('portal/manager_viewItemList_by_lname','Date Delivered')?></th>
 		<th><?php echo anchor('portal/manager_viewItemList_by_timeduty','Date Expired')?></th>
 		<th><?php echo anchor('portal/manager_viewItemList_by_dayoff','Quantity')?></th> 
-	<?php
-		foreach ($data as $d) {
-			echo "<tr>";
-			echo "<td>".$d['item_id']."</td>";
-			echo "<td>".$d['item_name']."</td>";
-			echo "<td>".$d['date_delivered']."</td>";
-			echo "<td>".$d['date_expired']."</td>";
-			echo "<td>".$d['quantity']."</td>";
-			echo "</tr>";
-		}
-	?>
+		</tbody>
+		<?php
+			foreach ($data as $d) {
+				echo "<tr>";
+				echo "<td>".$d['item_id']."</td>";
+				echo "<td>".$d['item_name']."</td>";
+				echo "<td>".$d['date_delivered']."</td>";
+				echo "<td>".$d['date_expired']."</td>";
+				echo "<td>".$d['quantity']."</td>";
+				echo "</tr>";
+			}
+		?>
 	</table>
 
 </div>

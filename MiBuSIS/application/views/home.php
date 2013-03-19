@@ -1,27 +1,25 @@
-<?php include 'resources.php'; ?>
+<?php include 'resources1.php'; ?>
+
 
 <html>
 <head>
 	<title> HOME </title>
+	
+
 </head>
 
 <body>
 <div id="main">
-	<div id="header">
-		<center>
-		<?php include 'main_header.php'; ?>
-		</center>
+
+	<div id="ads">
+		<div id="login_div">
+			<?php include 'login_form.php'; ?>
+		</div>
 	</div>
 	
-	<div id="login_div">
-		<center>
-		<?php include 'login_form.php'; ?>
-		</center>
-						
-	</div>
 
 	<div id="footer">
-		<?php include 'footer.php'; ?>
+		<?php include 'footer.php' ?>
 	</div>
 </div>	
 

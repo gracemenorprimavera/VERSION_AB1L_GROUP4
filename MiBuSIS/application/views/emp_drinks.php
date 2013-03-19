@@ -8,7 +8,8 @@
 <body>
 
 <div class="logout_emp">
-	<?php echo anchor('portal/index', 'Logout'); ?>
+	<?php echo anchor('portal/employee_home','<img src="'.base_url().'layout/homebutton.png" height="45" width="90"/>'); ?>
+		<?php echo anchor('portal/index', '<img src="'.base_url().'layout/logoutbutton.png" height="45" width="90"/>'); ?>
 </div>
 
 <div class="nav_pane">
